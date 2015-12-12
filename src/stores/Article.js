@@ -1,7 +1,8 @@
 import AbstractStore from './AbstractStore'
 import dispatcher from '../dispatcher'
 import {
-    REMOVE_ARTICLE
+    REMOVE_ARTICLE,
+    ADD_ARTICLE
 } from '../actions/constants'
 
 const articles = [{
@@ -24,6 +25,11 @@ class ArticleStore extends AbstractStore {
             switch (type) {
                 case REMOVE_ARTICLE:
                     this.remove(data.id)
+                    this.emitChange()
+                    break;
+                case ADD_ARTICLE:
+                    const id = Math.random() * 1000
+                    this.add(Object.assign(data, {id}))
                     this.emitChange()
                     break;
             }
