@@ -1,14 +1,10 @@
 import React, {Component, PropTypes} from 'react'
 
 class Article extends Component {
-    constructor() {
-        super()
-        this.state = {
-            checked: false
-        }
-    }
     static propTypes = {
-        article: PropTypes.object.isRequired
+        article: PropTypes.object.isRequired,
+        checked: PropTypes.bool,
+        onClick: PropTypes.func
     }
 
 /*
@@ -23,21 +19,16 @@ class Article extends Component {
     render() {
         console.log('---', 123);
         const {title, text} = this.props.article
-        const {checked} = this.state
+        const {checked, onClick} = this.props
         const backgroundColor = checked ?  'red' : 'white'
         return (
-            <div onClick = {this.toggleChecked} style = {{backgroundColor}}>
+            <div style = {{backgroundColor}} onClick = {onClick}>
                 <h3>{title}</h3>
                 <p>{text}</p>
             </div>
         )
     }
 
-    toggleChecked = () => {
-        this.setState({
-            checked: !this.state.checked
-        })
-    }
 }
 
 export default Article
