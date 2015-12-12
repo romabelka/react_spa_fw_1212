@@ -29,6 +29,15 @@ class AbstractStore extends EventEmitter {
         this.__items.push(item)
     }
 
+    getById(id) {
+        return this.__items.filter((item) => item.id == id)[0]
+    }
+
+    remove(id) {
+        let item = this.getById(id)
+        if (item) this.__items.splice(this.__items.indexOf(item), 1)
+    }
+
     getStore(store) {
         return stores[store]
     }
