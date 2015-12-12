@@ -7,7 +7,8 @@ class App extends Component {
     constructor() {
         super()
         this.state = {
-            articles: article.getAll()
+            articles: article.getOrLoadAll(),
+            loading: article.loading
         }
     }
 
@@ -20,11 +21,11 @@ class App extends Component {
     }
 
     render() {
-        const {articles} = this.state
+        const {articles, loading} = this.state
         return (
             <div>
                 <h1>News APP!!!!</h1>
-                <ArticlesList articles = {articles} />
+                <ArticlesList articles = {articles} loading = {loading}/>
                 <NewArticle />
             </div>
         )
@@ -32,7 +33,8 @@ class App extends Component {
 
     articlesChange = () => {
         this.setState({
-            articles: article.getAll()
+            articles: article.getOrLoadAll(),
+            loading: article.loading
         })
     }
 }

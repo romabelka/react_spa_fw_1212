@@ -10,14 +10,16 @@ class ArticlesList extends Component {
         }
     }
     static propTypes = {
-        articles: PropTypes.array
+        articles: PropTypes.array,
+        loading: PropTypes.bool
     }
     componentDidMount() {
         //console.log('---', findDOMNode(this.refs.article1));
     }
 
     render() {
-        const {articles} = this.props
+        const {articles, loading} = this.props
+        if (loading) return <h2>Loading...</h2>
         if (!articles || !articles.length) return <h2>No Articles!</h2>
 
         const articlesComponents = articles.map((article) => {
