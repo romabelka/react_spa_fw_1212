@@ -2,7 +2,11 @@ import React, {Component, PropTypes} from 'react'
 
 class Article extends Component {
     static propTypes = {
-        article: PropTypes.object.isRequired,
+        article: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired,
+            id: PropTypes.number.isRequired
+        }),
         checked: PropTypes.bool,
         onClick: PropTypes.func
     }
@@ -17,9 +21,10 @@ class Article extends Component {
 */
 
     render() {
-        console.log('---', 123);
-        const {title, text} = this.props.article
-        const {checked, onClick} = this.props
+        const {checked, onClick, article} = this.props
+        if (!article) return null;
+
+        const {title, text} = article
         const backgroundColor = checked ?  'red' : 'white'
         return (
             <div style = {{backgroundColor}} onClick = {onClick}>
