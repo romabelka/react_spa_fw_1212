@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {article} from '../stores'
 import ArticlesList from './ArticlesList'
+import NewArticle from './NewArticle'
 
 class App extends Component {
     constructor() {
@@ -24,6 +25,7 @@ class App extends Component {
             <div>
                 <h1>News APP!!!!</h1>
                 <ArticlesList articles = {articles} />
+                <NewArticle />
             </div>
         )
     }

@@ -11,15 +11,6 @@ class Article extends Component {
         checked: PropTypes.bool
     }
 
-/*
-    shouldComponentUpdate(newProps, newState) {
-        const oldArticle = this.props.article
-        const {article} = newProps
-        //won't work, article and oldArticle is always the same object, use Immutable.js
-        return article != oldArticle
-    }
-*/
-
     render() {
         const {checked, article} = this.props
         if (!article) return null;
