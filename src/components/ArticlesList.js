@@ -1,31 +1,33 @@
 import React, {Component, PropTypes} from 'react'
-import {findDOMNode} from 'react-dom'
 import Article from './Article'
+import {article} from '../stores'
 
 class ArticlesList extends Component {
     constructor() {
         super()
         this.state = {
-            checked: null
+            articles: article.getOrLoadAll(),
+            loading: article.loading
         }
     }
-    static propTypes = {
-        articles: PropTypes.array,
-        loading: PropTypes.bool
-    }
+
     componentDidMount() {
-        //console.log('---', findDOMNode(this.refs.article1));
+        article.addChangeListener(this.articlesChange)
     }
 
+    componentWillUnmount() {
+        article.removeChangeListener(this.articlesChange)
+    }
+
+
     render() {
-        const {articles, loading} = this.props
+        const {articles, loading} = this.state
         if (loading) return <h2>Loading...</h2>
         if (!articles || !articles.length) return <h2>No Articles!</h2>
 
         const articlesComponents = articles.map((article) => {
             const {id} = article;
             return <Article
-                onClick = {this.chooseArticle(id)}
                 ref = {`article${id}`}
                 article = {article}
                 checked = {id == this.state.checked}
@@ -39,9 +41,11 @@ class ArticlesList extends Component {
         )
 
     }
-    chooseArticle = (id) => (ev) => {
+
+    articlesChange = () => {
         this.setState({
-            checked: id
+            articles: article.getOrLoadAll(),
+            loading: article.loading
         })
     }
 }

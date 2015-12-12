@@ -7,8 +7,8 @@ export class Action {
     }
 }
 
-export function asyncAC(type, promise) {
-    dispatcher.dispatch(new Action(`${type}_START`))
+export function asyncAC(type, promise, data) {
+    dispatcher.dispatch(new Action(`${type}_START`, data))
 
     promise.then(
         (response) => dispatcher.dispatch(new Action(`${type}_SUCCESS`, {response})),

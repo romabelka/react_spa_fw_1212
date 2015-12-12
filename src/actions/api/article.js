@@ -7,3 +7,10 @@ export function loadAll() {
         }, 1000)
     })
 }
+export function loadById(id) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            $.get(`/api/article/${id}`).then(resolve, reject)
+        }, 1000)
+    })
+}

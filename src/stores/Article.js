@@ -1,12 +1,15 @@
 import AbstractStore from './AbstractStore'
 import dispatcher from '../dispatcher'
-import {loadArticles} from '../actions/article'
+import {loadArticles, loadArticle} from '../actions/article'
 import {
     REMOVE_ARTICLE,
     ADD_ARTICLE,
     LOAD_ARTICLES_START,
     LOAD_ARTICLES_SUCCESS,
-    LOAD_ARTICLES_FAIL
+    LOAD_ARTICLES_FAIL,
+    LOAD_ARTICLE_START,
+    LOAD_ARTICLE_SUCCESS,
+    LOAD_ARTICLE_FAIL
 } from '../actions/constants'
 
 class ArticleStore extends AbstractStore {
@@ -40,6 +43,17 @@ class ArticleStore extends AbstractStore {
                     this.loaded = this.loading = false
                     this.error = data.error
                     break;
+
+                case LOAD_ARTICLE_START:
+                    this.add({
+                        id: data.id,
+                        loading: true
+                    })
+                    break;
+                case LOAD_ARTICLE_SUCCESS:
+                    this.remove(data.response.id)
+                    this.add(data.response)
+                    break;
             }
             this.emitChange()
         })
@@ -48,6 +62,12 @@ class ArticleStore extends AbstractStore {
     getOrLoadAll() {
         if (!this.loaded && !this.loading) loadArticles()
         return this.getAll()
+    }
+
+    getOrLoadById(id) {
+        const article = this.getById(id)
+        if (!article) loadArticle(id)
+        return article
     }
 }
 

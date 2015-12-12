@@ -1,10 +1,11 @@
 import dispatcher from '../dispatcher'
 import {Action, asyncAC} from './common'
-import {loadAll} from './api/article'
+import {loadAll, loadById} from './api/article'
 import {
     REMOVE_ARTICLE,
     ADD_ARTICLE,
-    LOAD_ARTICLES
+    LOAD_ARTICLES,
+    LOAD_ARTICLE
 } from './constants'
 
 export function removeArticle(id) {
@@ -18,4 +19,8 @@ export function addArticle(article) {
 
 export function loadArticles() {
     asyncAC(LOAD_ARTICLES, loadAll())
+}
+
+export function loadArticle(id) {
+    asyncAC(LOAD_ARTICLE, loadById(id), {id})
 }
