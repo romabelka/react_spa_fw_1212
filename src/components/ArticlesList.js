@@ -1,9 +1,13 @@
 import React, {Component, PropTypes} from 'react'
+import {findDOMNode} from 'react-dom'
 import Article from './Article'
 
 class ArticlesList extends Component {
     static propTypes = {
         articles: PropTypes.array
+    }
+    componentDidMount() {
+        console.log('---', findDOMNode(this.refs.article1));
     }
 
     render() {
@@ -11,7 +15,7 @@ class ArticlesList extends Component {
         if (!articles || !articles.length) return <h2>No Articles!</h2>
 
         const articlesComponents = articles.map((article) => {
-            return <Article article = {article} key={article.id}/>
+            return <Article ref = {`article${article.id}`}article = {article} key={article.id}/>
         })
 
         return (
