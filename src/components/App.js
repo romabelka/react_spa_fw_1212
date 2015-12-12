@@ -12,28 +12,13 @@ const articles = [{
 }]
 
 class App extends Component {
-    constructor() {
-        super()
-        this.state = {
-            counter: 0
-        }
-    }
-
     render() {
-        console.log('---', articles[0].title);
         return (
             <div>
                 <h1 onClick = {this.handleClick}>News APP!!!!</h1>
                 <ArticlesList articles = {articles} />
             </div>
         )
-    }
-
-    handleClick = () => {
-        articles[0].title = 'changed!!'
-        this.setState({
-            counter: this.state.counter + 1
-        })
     }
 }
 
