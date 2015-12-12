@@ -1,12 +1,10 @@
 import dispatcher from '../dispatcher'
-import {Action} from './common'
+import {Action, asyncAC} from './common'
 import {loadAll} from './api/article'
 import {
     REMOVE_ARTICLE,
     ADD_ARTICLE,
-    LOAD_ARTICLES_START,
-    LOAD_ARTICLES_SUCCESS,
-    LOAD_ARTICLES_FAIL
+    LOAD_ARTICLES
 } from './constants'
 
 export function removeArticle(id) {
@@ -19,10 +17,5 @@ export function addArticle(article) {
 }
 
 export function loadArticles() {
-    dispatcher.dispatch(new Action(LOAD_ARTICLES_START))
-
-    setTimeout(() => loadAll().then(
-        (response) => dispatcher.dispatch(new Action(LOAD_ARTICLES_SUCCESS, {response})),
-        (error) => dispatcher.dispatch(new Action(LOAD_ARTICLES_FAIL, {error}))
-    ), 1000)
+    asyncAC(LOAD_ARTICLES, loadAll())
 }

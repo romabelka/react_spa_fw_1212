@@ -1,5 +1,9 @@
 import $ from 'jquery'
 
 export function loadAll() {
-    return $.get('/api/article')
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            $.get('/api/article').then(resolve, reject)
+        }, 1000)
+    })
 }
