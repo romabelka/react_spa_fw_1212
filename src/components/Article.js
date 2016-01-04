@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {removeArticle} from '../actions/article'
+import WithHint from '../HigherOrderComponents/WithHint'
 
 class Article extends Component {
     static propTypes = {
@@ -12,14 +13,15 @@ class Article extends Component {
     }
 
     render() {
-        const {checked, article} = this.props
+        const {checked, article, hint, showHint, hideHint} = this.props
         if (!article) return null;
 
         const {title, text} = article
         const backgroundColor = checked ?  'red' : 'white'
         return (
             <div style = {{backgroundColor}} onClick = {this.handleClick}>
-                <h3>{title}</h3>
+                {hint}
+                <h3 onMouseOver = {showHint(title)} onMouseOut = {hideHint}>{title}</h3>
                 <p>{text}</p>
             </div>
         )
@@ -31,4 +33,4 @@ class Article extends Component {
 
 }
 
-export default Article
+export default WithHint(Article)
