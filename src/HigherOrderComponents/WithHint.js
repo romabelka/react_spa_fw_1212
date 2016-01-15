@@ -13,7 +13,7 @@ export default (Component) => {
         }
 
         render() {
-            return <Component {...Object.assign({hint: this.getHint(), showHint: this.showHint, hideHint: this.hideHint}, this.props)} />
+            return <Component {...{hint: this.getHint(), showHint: this.showHint, hideHint: this.hideHint}} {...this.props} />
         }
 
         showHint = (text) => {
